@@ -1,0 +1,101 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+boxmodule = require(game:GetService("ReplicatedStorage").Modules.BoxModule)
+hi = getsenv(game:GetService("Players").LocalPlayer.PlayerGui.MainGUI.Inventory.NewItem)._G
+itemdatabase = require(game:GetService("ReplicatedStorage").Database.Sync.Item)
+getgenv().newValue = ""
+
+
+function getrandombox()
+    local boxes = require(game:GetService("ReplicatedStorage").Database.Sync.MysteryBox)
+    if not boxes or next(boxes) == nil then
+        return nil
+    end
+    local keys = {}
+    for k,_ in pairs(boxes) do
+        table.insert(keys, k)
+    end
+    local randomIndex = math.random(1, #keys)
+    return keys[randomIndex]
+end
+
+function opencrate(ITEM_NAME)
+    print(ITEM_NAME)
+    boxmodule.OpenBox(getrandombox(), ITEM_NAME)
+    hi.NewItem(ITEM_NAME, nil, nil, 'Weapons', 1)
+end
+
+function getrawnamebyrealname(realname)
+    for i,v in pairs(itemdatabase) do
+        if realname == string.lower(i) then
+            return i
+        elseif realname == i then
+            return i
+        end
+    end
+end
+
+function getImage(iname)
+    for name,info in pairs(itemdatabase) do
+        if iname == string.lower(name) then
+            return info.Image
+        elseif iname == name then
+            return info.Image
+        end
+    end
+end
+
+
+
+function fakeItem()
+local jj = Instance.new("Frame")
+    jj.Name = "NewItem"
+        if game.Players.LocalPlayer.PlayerGui.MainGUI:FindFirstChild("Game") and game.Players.LocalPlayer.PlayerGui.MainGUI.Game:FindFirstChild("Inventory") then
+            jj.Parent = game:GetService("Players").LocalPlayer.PlayerGui.MainGUI.Game.Inventory.Main.Weapons.Items.Container.Classic.Container
+        elseif game.Players.LocalPlayer.PlayerGui.MainGUI:FindFirstChild("Lobby") and game.Players.LocalPlayer.PlayerGui.MainGUI.Lobby.Screens:FindFirstChild("Inventory") then
+            jj.Parent = game:GetService("Players").LocalPlayer.PlayerGui.MainGUI.Lobby.Screens.Inventory.Main.Weapons.Items.Container.Classic.Container
+        end
+    jj.Size = UDim2.new(0.200000003, 0, 0.25, 0)
+    jj.BackgroundColor3 = Color3.new(1, 1, 1)
+    jj.BackgroundTransparency = 1
+    jj.BorderColor3 = Color3.new(0.1058823529411765, 0.1647058823529412, 0.207843137254902)
+    jj.BorderMode = "Outline"
+    jj.BorderSizePixel = 1
+    jj.Visible = true
+    local kk = Instance.new("Frame")
+        kk.Name = "Container"
+        kk.Parent = jj
+        kk.Position = UDim2.new(0, 3, 0, 3)
+        kk.Size = UDim2.new(1, -6, 0.824999988, -6)
+        kk.BackgroundColor3 = Color3.new(0.2235294117647059, 0.2235294117647059, 0.2235294117647059)
+        kk.BackgroundTransparency = 0
+        kk.BorderColor3 = Color3.new(0, 0, 0)
+        kk.BorderMode = "Outline"
+        kk.BorderSizePixel = 2
+        kk.Visible = true
+        local ll = Instance.new("ImageLabel")
+            ll.Parent = kk
+            ll.AnchorPoint = Vector2.new(0.5, 0.5)
+            ll.BackgroundColor3 = Color3.new(1, 1, 1)
+            ll.BackgroundTransparency = 1
+            ll.Name = "Icon"
+            ll.Size = UDim2.new(1, 0, 1, 0)
+            ll.Position = UDim2.new(0.5, 0, 0.5, 0)
+            ll.Image = getImage(getgenv().newValue)
+            ll.ImageColor3 = Color3.new(1,1,1)
+            ll.ImageTransparency = 0
+            ll.TileSize = UDim2.new(1, 0, 1, 0)
+        local hh = Instance.new("TextLabel")
+            hh.TextScaled = true
+            hh.TextWrapped = true
+            hh.Font = "SourceSans"
+            hh.AnchorPoint = Vector2.new(1, 0)
+            hh.BackgroundTransparency = 1
+            hh.Name = "Amount"
+            hh.Parent = kk
+            hh.Position = UDim2.new(1, -4, 0, 3)
+            hh.Size = UDim2.new(0.5, 0, 0.224999994, 0)
+            hh.Text = ""
+            hh.TextColor3 = Color3.new(1,1,1)
+            hh.TextSize = 18
+            hh.TextStrokeTransparency = 0.9
+... (198 lines left)
